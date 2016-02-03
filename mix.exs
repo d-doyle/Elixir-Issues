@@ -4,7 +4,10 @@ defmodule Issues.Mixfile do
   def project do
     [app: :issues,
      version: "0.0.1",
+     name: "Issues",
+     source_url: "https://github.com/pragdave/issues",
      elixir: "~> 1.1",
+     escript: escript_config,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps]
@@ -14,7 +17,7 @@ defmodule Issues.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [ :logger, :httpoison ]]
+    [applications: [ :logger, :httpoison, :jsx ]]
   end
 
   # Dependencies can be Hex packages:
@@ -29,8 +32,13 @@ defmodule Issues.Mixfile do
   defp deps do
     [
       { :httpoison, "~> 0.8" },
-      { :jsx, "~> 2.8" }
+      { :jsx, "~> 2.8" },
+      { :ex_doc, github: "elixir-lang/ex_doc" },
+      { :earmark, ">= 0.0.0"}
     ]
   end
-end
 
+  defp escript_config do
+    [main_module: Issues.CLI]
+  end
+end
